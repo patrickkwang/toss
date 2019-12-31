@@ -14,6 +14,10 @@ app.config.ACCESS_LOG = False
 @app.route('/tos')
 async def tos(request):
     """Get terms of service."""
+    if 'service_long' not in request.args:
+        return response.text('"service_long" is a required query parameter', status=400)
+    if 'provider_long' not in request.args:
+        return response.text('"provider_long" is a required query parameter', status=400)
     args = {
         'service': {
             'long': request.args.get('service_long'),
